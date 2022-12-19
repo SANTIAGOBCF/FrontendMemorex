@@ -1,0 +1,848 @@
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	min-height: 100%;
+	background-color: #eee;
+	position: relative;
+	background-image: url(../img/background.jpg);
+}
+
+/*se esta bloqueando para la imagen*/
+
+/*para la imagen */
+
+#avatar{
+	object-fit: cover;
+    display: block;      
+    margin-left: auto;  
+    margin-right: auto;  
+}
+
+#override .boton-sec a, #override .boton-sec .btn {
+	font-size: 0.95em;
+	height: 100%;
+	width: 50%;
+}
+
+#override .boton-sec .btn  {
+	width: 100%; 
+	background-color: #000;
+}
+
+#override .boton-sec .btn:hover {
+	transition: 200ms ease-in-out all;
+	background-color: rgb(122, 0, 0);
+}
+
+#override .btn-user {
+	font-size: 0.9;
+}
+
+#override .btn-user img {
+	height: 20px;
+	border-radius: 15px;
+	object-fit: cover;
+}
+
+.enlace {
+	font-family: Arvo, serif;
+}
+
+.topbar {
+	border-bottom: 2px solid #000;
+	background-color: #fff;
+}
+
+#override .topbar .navbar-nav a {
+	color: #000; 
+	font-weight: bold;
+}
+
+#override .navbar-nav a:hover {
+	transition: ease-in-out;
+	transition-duration: 200ms;
+	color: rgb(255, 0, 0);
+}
+
+.nav-item {
+	font-size: 0.9em;
+}
+
+.nav-item i {
+	color: rgb(196, 0, 0);
+	font-size: 1.2em;
+}
+
+.btn-group {
+	font-family: 'Open Sans', sans-serif;
+}
+
+#override .carousel img {
+	height: 500px;
+	width: 100%;
+	object-fit: cover;
+}
+
+@media screen and (max-width: 1200px) {
+
+	#override .carousel img {
+		height: 400px;
+		right: 100px;
+	}
+
+}
+
+@media screen and (max-width: 768px) {
+
+	#override .carousel img {
+		height: 300px;
+	}
+
+}
+
+#override .select-busqueda {
+	border-radius: 4px 0 0 4px;
+	padding: 6px 8px;
+}
+
+#override .busqueda {
+	border: 1px solid rgb(102, 102, 102);
+	border-radius: 5px 0 0 5px;
+}
+
+#override .botones-user {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+#override .botones-user form, #override .botones-user .btn-group {
+	width: auto;
+}
+
+
+#override .botones-user .btn-group .btn {
+	font-size: 0.9em;
+}
+
+.botones-user .btn-group a:hover {
+	color: #fff;
+	transition: 100ms ease-in-out all;
+}
+
+
+/*************************************************************/
+
+
+
+/***ABOUT US*************/
+.contenedor-texto{
+	grid-area: texto;
+  	margin-right: 5px;
+	margin-left: 15px;
+  	text-align: justify;
+}
+
+.grid-info{
+	grid-area: texto;
+  	margin: auto;
+  	text-align: justify;
+}
+
+.grid-info img {
+	grid-area: imagen;
+}
+
+@media screen and (min-width: 768px) {
+
+  	.grid-info {
+    		display: grid;
+    		grid-template-areas: "texto imagen";
+    		grid-template-columns: 50% 50%;
+    		grid-gap: 30px;
+	  }
+
+}
+
+
+/****REDES SOCIALES****/
+
+.contenedor-redes a{
+	display: inline;
+	margin-right:5px;
+	margin-left:5px;
+	font-size:1.2rem;
+}
+
+.contenedor-redes a:hover{
+color: var(--secundario);
+}
+
+/**********************/
+
+/*CAROUSEL************************/
+
+#override .carousel img {
+	opacity: 0.7;
+}
+
+.bienvenida {
+	background-color: #000;
+}
+
+/*************************************/
+
+.botonLogout{
+	float: right;
+	height: 100px;  	
+	width: 100px;
+}
+
+/*bloqueando contenedor*/
+
+.contenedor{
+	flex-flow: row nowrap;
+	margin: 0 auto;
+	width: 50%;
+}
+
+.item{
+	margin: 1em;
+	padding: 1em;
+	color: #ffffff;
+	border-radius: 1%;
+}
+
+/*para el row del bots*/
+
+.row{
+	margin: 1em;
+	padding: 1em;
+}
+
+/*resaltar en rojo*/
+
+.item h2 {
+	padding: 5px 15px;
+	background-color: rgb(160, 0, 0);
+	color: #fff;
+	width: 100%;
+	margin: 0 0 10px 0;
+}
+
+/*******************/
+
+/*resaltar en rojo el bots*/
+
+.row h2 {
+	padding: 5px 15px;
+	background-color: rgb(160, 0, 0);
+	color: #fff;
+	width: 100%;
+	margin: 0 0 10px 0;
+}
+
+/*******************/
+
+#item1{
+	columns: 2;/*para dividir*/
+	background-color: #ffffff;
+	color:#010113;
+	flex-grow: 1;
+}
+
+#item4{
+	background-color: #ffffff;
+	color:#010113;
+	flex-grow: 2;
+}
+
+h2{
+	font-family: 'Arial';
+	font-weight: bold;
+	font-size: 1em;
+}
+
+h3{
+	font-family: 'Arial';
+	font-weight: bold;
+	font-size: 1em;
+}
+
+td{
+  text-align: left;
+  padding: 10px;
+}
+
+.content {
+	display: flex;
+	margin: 0 18% 10px 18%;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#override .publicar .form-control {
+	border: 2px solid rgb(114, 114, 114);
+}
+
+.publicar {
+	padding-top: 15px;
+}
+
+.publicar h3 {
+	padding: 5px 15px;
+	background-color: rgb(160, 0, 0);
+	color: #fff;
+	width: 60%;
+	margin: 0 0 10px 0;
+}
+
+.publicar label {
+	font-size: 14px;
+	font-weight: 700;
+	width: 20%;
+}
+
+.publicar input {
+	width: 200px;
+	font-size: 14px;
+	height: 25px;
+	padding: 0 10px;
+	margin: 15px 0;
+	border: none;
+	border-bottom: 3px solid #ccc;
+	border-radius: .25rem;
+}
+
+.publicar textarea {
+	width: 98%;
+	font-size: 14px;
+	height: 30px;
+	padding: 5px 10px;
+	border: 2px solid #aaa;
+	font-family: 'Open Sans', sans-serif;
+	border-radius: .25rem;
+}
+
+.publicar textarea:focus {
+	height: 100px;
+	transition: 100ms ease-in-out all;
+	border: 2px solid #000;
+}
+
+.publicar input:focus {
+	border: none;
+	border-bottom: 4px solid #000;
+	width: 90%;
+	transition: 200ms ease-in-out all;
+}
+
+.publicar input:hover {
+	border-bottom: 4px solid rgb(0, 0, 0);
+	transition: 200ms ease-in-out all;
+}
+
+.publicar input[type=radio] {
+	margin: 0;
+	width: 20px;
+}
+
+#titulo {
+	font-weight: 700;
+	font-size: 1em;
+	margin-top: 0;
+	font-family: 'Roboto Slab', serif;
+	display: block;
+}
+
+#personaje {
+	display: none;
+	margin: 0;
+}
+
+#personaje-select {
+	padding: 0;
+	height: 30px;
+}
+
+#fecha {
+	margin:0;
+	width: 150px;
+	display: block;
+}
+
+.perso {
+	height: 15px;
+}
+
+.nuevo, .seleccionar {
+	float: none;
+}
+
+#lblfecha {
+	width: 50px; 
+	display: block;
+}
+
+.clear {
+	height: 35px;
+}
+
+
+/*PUBLICACIONES ESTILOS********************/
+
+.publicacion {
+	border-bottom: 2px solid #aaa;
+	padding-top: 20px;
+	border-right: 4px solid rgb(145, 0, 0);
+}
+
+.publicacion h3{
+	font-size: 1.3em;
+	margin: 10px 0;
+}
+
+.publicacion .fecha-lbl {
+	font-size: 0.9em;
+}
+
+.username-publi {
+	color: crimson;
+	font-weight: bold;
+	font-size: 0.9em;
+}
+
+.info-publi {
+	text-align: justify;
+	text-justify: auto;
+	font-size: 1em;
+}
+
+.fuentes-lbl {
+	display: block;
+	margin: 10px 0;
+	font-weight: bold;
+}
+
+.fuente-title {
+	display: block;
+}
+
+.fuente-publi a {
+	font-size: 0.8em;
+}
+
+.fuente-publi {
+	color: #000;
+}
+
+.publi-body-col1{ 
+	margin: 0; 
+	padding: 0 20px 10px 5px;
+	color: #000;
+}
+
+.publi-body-col2{ 
+	background-color: rgb(32, 0, 0);
+	padding: 0.6em 0.8em;
+	color: #fff;
+	font-family: 'Rubik';
+	border-radius: 60px 0 0 60px;
+	display: flex;
+	flex-direction: row;
+}
+
+#override .publi-body-col2 img {
+	width: 60px;
+	height: 60px;
+	opacity: 0.8;
+	object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+
+	.publi-body-col2 {
+		flex-direction: column;
+		border-radius: 5px 0 0 5px;
+	}
+
+	.nombre-perso{
+		text-align: center;
+	}
+
+	.publi-body-col2 img {
+		margin: 10px auto;
+	}
+
+}
+
+.publicacion .img-usuario {
+	object-fit: cover;
+	width: 50px;
+	height: 50px;
+}
+
+.nombre-perso {
+	margin: auto 0;
+	padding-left: 10px;
+	font-size: 0.8em;
+}
+
+
+/*CREAR PERSONAJE************************************/
+
+.crear-perso {
+	padding: 20px;
+}
+
+.crear-perso .row {
+	color: #000;
+}
+
+
+/* LISTA DE PERSOS ***************************************************/
+
+.lista-persos .card {
+	font-size: 0.9em;
+	color: #000;
+	font-family: Rubik, sans-serif;
+	height: 100%;
+}
+
+.lista-persos .card-header {
+	font-size: 1em;
+	font-family: 'Open Sans', sans-serif;
+	color: #fff;
+	margin: 0;
+}
+
+.lista-persos .card-img-top {
+	border-radius: 0;
+	object-fit: cover;
+}
+
+.lista-persos .card-header {
+	background-color: rgb(36, 36, 36);
+	font-weight: bold;
+}
+
+#override .boton-perso-header {
+	color: rgb(255, 255, 255);
+	font-size: 0.9em;
+}
+
+#override .botones-header-perso {
+	position: absolute;
+	top: 50px;
+	right: 5px;
+}
+
+#override .btn-outline-danger:hover {
+	background-color: rgb(63, 0, 0);
+	color: #fff;
+	transition: 100ms ease-in-out all;
+}
+
+
+/*TESTEO*********************************/
+
+.titulo-busqueda h3 {
+	font-family: 'Open Sans', sans-serif;
+	padding-top: 20px;
+}
+
+.resultados-persos {
+	color: #000;
+}
+
+.resultados-persos .row {
+	padding: 0;
+	margin: 0;
+}
+
+.img-busqueda {
+	background-color: #000;
+}
+
+.resultados-persos main {
+	border-radius: 20px;
+}
+
+.resultados-persos img {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	margin: 10px auto;
+}
+
+#override .publicar .dropdown-toggle {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 0.9em;
+}
+
+#override .publicar .dropdown-item {
+	font-size: 0.9em;
+}
+
+#override .publicar .dropdown-item:hover {
+	background-color: #333;
+	transition: 100ms ease-in-out all;
+	color: #fff;
+}
+
+#override .publicar .dropdown-item.selected { 
+	background-color: rgb(146, 0, 0);
+	transition: 100ms ease-in-out all;
+	color: #fff;
+}
+
+#override .publicar .dropdown input {
+	margin: 0;
+	border: none;
+	border-bottom: 2px solid #000;
+	border-radius: 0;
+	height: auto;
+}
+
+#override .publicar .dropdown input:focus {
+	width: 100%;
+}
+
+.topbar .dropdown-item {
+	font-size: 0.9em;
+}
+
+#override .topbar .dropdown-item:hover {
+	background-color: #333;
+	color: #fff;
+}
+
+.header-seccion {
+	color: #ddd;
+	background-color: #111;
+	padding: 10px 20px;
+	border-bottom: 1px solid #fff;
+	margin-bottom: 20px;
+}
+
+.header-seccion h1 {
+	text-align: center;
+	font-family: 'Roboto Slab', serif; 
+	font-size: 1.3em;
+	font-weight: 700;
+}
+
+.header-seccion h3 {
+	text-align: center;
+	font-family: 'Roboto Slab', serif; 
+	font-size: 1.3em;
+	font-weight: 700;
+}
+
+/*REPORTES**************************************************/
+
+.admin-rep-container {
+	padding: 0;
+}
+
+.admin-rep-container main  {
+	padding: 0 0;
+}
+
+.admin-rep-container h2 {
+	font-size: 1em;
+	font-family: 'Rubik', sans-serif;
+	font-weight: 500;
+	padding: 10px 10px;
+	text-align: center;
+	background-color: rgb(70, 0, 0);
+	color: #fff;
+	border-radius: 10px 10px 10px 10px;
+}
+
+.admin-rep-container .nav-tabs {
+	margin-bottom: 20px;
+	border-bottom: 2px solid #aaa;
+	padding: 0 10px;
+}
+
+.admin-rep-container .tab-content {
+	padding: 0 20px;
+}
+
+.p-reportado div{
+	padding: 0;
+	margin: 5px 0;
+}
+
+.p-reportado span {
+	padding: 5px 0;
+}
+
+.p-reportado .pr-perso {
+	margin: 10px 0;
+}
+
+.p-reportado .info-publi {
+	padding-right: 20px;
+}
+
+#override .bg-danger {
+	color: #eee;
+}
+
+.perso-reportado .badge {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 500;
+	position: absolute;
+	top: 55px;
+	left: 10px;
+	font-size: 1em;
+	background-color: rgb(216, 0, 0);
+}
+
+.p-reportado .badge {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 500;
+	font-size: 1em;
+	background-color: rgb(216, 0, 0);
+	padding: 6px 10px;
+	margin: auto 0;
+}
+
+.p-reportado .btn-ign-del form {
+	margin: 0 10px;
+}
+
+.p-reportado .btn-ign-del .btn {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 0.9em;
+}
+.asign-mod form{
+	display: flex;
+	align-content: center;
+	justify-content: space-around;
+}
+
+.asign-mod {
+	padding: 30px 10px;
+	background-color: rgb(31, 31, 31);
+	color: #eee;
+	margin: 0 20px;
+}
+
+.lista-mods .mod {
+	padding: 20px 10px;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	justify-content: space-between;
+}
+
+.lista-mods .mod .badge {
+	font-weight: 500;
+	font-size: 0.9em;
+	height: 25px;
+	padding: auto 10px;
+}
+
+.lista-mods .user-mod {
+	font-weight: 700;
+	color: rgb(201, 0, 0);
+}
+
+.lista-mods .mod .btn {
+	font-size: 0.9em;
+	
+}
+
+/*EDITAR DATOS****************************************/
+
+.editar-usuario ul {
+	padding: 0;
+}
+
+.editar-usuario #item1{
+	min-height: 600px;
+}
+
+.editar-usuario .user-bienvenida h3 {
+	font-size: 1em;
+	font-family: 'Rubik', sans-serif;
+	font-weight: 500;
+	padding: 8px 20px;
+	text-align: center;
+	background-color: rgb(70, 0, 0);
+	color: #fff;
+	border-radius: 0 0 10px 10px;
+}
+
+.editar-usuario .user-bienvenida {
+	padding-bottom: 10px;
+}
+
+.editar-usuario .input-group-text {
+	background-color: #333;
+	color: #ddd;
+	width: 120px;
+}
+
+
+/*PUBLI DE PERSOS*************************************/
+
+.perso-publis{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.perso-publis img {
+	width: 500px;
+	object-fit: cover;
+}
+
+/**PAGINACION***************************************/
+
+.pagination a {
+	background-color: #222;
+	color: #ddd;
+}
+
+.pagination a:hover {
+	background-color: #333;
+	transition: 200ms ease-in-out all;
+	color: #ddd;
+}
+
+/*FOOTER***************************/
+
+body::after{ content:''; display:block; height:80px; }
+
+footer {
+	font-family: Rubik, sans-serif;
+	height: 80px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: rgb(7, 7, 7);
+	color: #fff;
+}
+
+footer span {
+	width: 100%;
+	display: block;
+	text-align: center;
+}
+
+
+[data-toggle="collapse"] .fa:before {  
+	content: "\f068";
+}
+  
+[data-toggle="collapse"].collapsed .fa:before {
+	content: "\f067";
+}
+  
