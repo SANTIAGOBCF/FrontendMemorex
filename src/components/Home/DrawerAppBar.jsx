@@ -21,6 +21,8 @@ import LeftCarousel from "./LeftCarousel";
 import { maxWidth } from "@mui/system";
 
 import { useSelector } from "react-redux";
+import DeleteModal from "./DeleteModal";
+import AddPostDialog from "./AddPostDialog";
 
 const drawerWidth = 240;
 const navItems = ["Publicaciones", "Personajes", "Nosotros"];
@@ -181,6 +183,8 @@ function DrawerAppBar(props) {
           eius nostrum consequuntur iure aliquam itaque, assumenda et! Quibusdam
           temporibus beatae doloremque voluptatum doloribus
         </Typography>
+        <DeleteModal/>
+        <AddPostDialog/>
       </Box>
     </Box>
   );
