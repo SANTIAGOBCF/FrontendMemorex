@@ -14,26 +14,33 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import logo from "../../static/img/logoMem.png";
-import { ButtonGroup, Grid, Link } from "@mui/material";
+import { ButtonGroup } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
-import LeftCarousel from "./LeftCarousel";
-import { maxWidth } from "@mui/system";
 
-import { useSelector } from "react-redux";
-import DeleteModal from "./DeleteModal";
-import AddPostDialog from "./AddPostDialog";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/slices/authSlice";
 
 const drawerWidth = 240;
 const navItems = ["Publicaciones", "Personajes", "Nosotros"];
 
 function DrawerAppBar(props) {
-  const { isLogged } = useSelector((state) => state.loggedSlice);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const { token } = useSelector((state) => state.authSlice);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("home");
   };
 
   const drawer = (
@@ -60,7 +67,7 @@ function DrawerAppBar(props) {
 
   return (
     <Box bgcolor="white" sx={{ display: "flex" }}>
-      <AppBar component="nav"  color="default">
+      <AppBar component="nav" color="default">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -71,9 +78,9 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <a href="http://localhost:5000/">
+          <Link to="/home">
             <img height="45px" src={logo} alt="Volver a página principal" />
-          </a>
+          </Link>
           <Typography
             variant="h6"
             component="div"
@@ -87,25 +94,36 @@ function DrawerAppBar(props) {
               </Button>
             ))}
           </Box>
-          {!isLogged && (
-            <Box>
-              <ButtonGroup
-                color="inherit"
-                aria-label="medium secondary button group"
+
+          <Box>
+            <ButtonGroup
+              color="inherit"
+              aria-label="medium secondary button group"
+            >
+              <Link
+                to={token ? "/profile" : "/register"}
+                style={{ textDecoration: "none", color: "gray" }}
               >
                 <Button>
-                  <Link href="/login" underline="none">
-                    <LoginIcon color="action"/>
-                  </Link>
+                  <PersonIcon color="action" />
                 </Button>
-                <Button>
-                  <Link href="/register" underline="none">
-                    <PersonIcon color="action"/>
-                  </Link>
+              </Link>
+              {!token ? (
+                <Link
+                  to="/login"
+                  style={{ textDecoration: "none", color: "gray" }}
+                >
+                  <Button>
+                    <LoginIcon color="action" />
+                  </Button>
+                </Link>
+              ) : (
+                <Button onClick={handleLogout}>
+                  <LogoutIcon color="action" />
                 </Button>
-              </ButtonGroup>
-            </Box>
-          )}
+              )}
+            </ButtonGroup>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box component="nav">
@@ -125,66 +143,8 @@ function DrawerAppBar(props) {
             },
           }}
         >
-          {drawer}
+          {/* {drawer} */}
         </Drawer>
-      </Box>
-      <Box m={0} p={0} width={1400} component="main">
-        <Toolbar />
-        <Grid
-          container
-          sx={{ bgcolor: "text.primary", m: 0,p:0 }}
-          alignContent="center"
-          
-        >
-          <Grid item xs={8} padding={4} alignContent="center">
-            <Grid alignItems="center" item xs={12}  >
-              <LeftCarousel />
-            </Grid>
-          </Grid>
-
-          <Grid container color="white" item xs={3} alignContent="center">
-            <Typography color="white" variant="body2" gutterBottom>
-              <Typography color="white" variant="h3" gutterBottom>
-                ¡Bienvenido!
-              </Typography>
-              Esta es una página donde puedes ver acontecimientos relacionados a
-              políticos o personajes públicos. Estas publicaciones son
-              realizadas por la ciudadanía y tú puedes ser partícipe de ello.
-              Memorex tiene como objetivo que el ciudadano no olvide. Nace ante
-              la necesidad de recordar todo lo relacionado a personajes
-              vinculados a nuestra política.
-            </Typography>
-            {!isLogged && (
-              <Grid item xs={12} alignContent="center">
-                <ButtonGroup
-                  color="inherit"
-                  aria-label="medium secondary button group"
-                >
-                  <Button>
-                    <LoginIcon />
-                  </Button>
-                  <Button>
-                    <PersonIcon />
-                  </Button>
-                </ButtonGroup>
-              </Grid>
-            )}
-          </Grid>
-        </Grid>
-        <Typography>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
-          unde fugit veniam eius, perspiciatis sunt? Corporis qui ducimus
-          quibusdam, aliquam dolore excepturi quae. Distinctio enim at eligendi
-          perferendis in cum quibusdam sed quae, accusantium et aperiam? Quod
-          itaque exercitationem, at ab sequi qui modi delectus quia corrupti
-          alias distinctio nostrum. Minima ex dolor modi inventore sapiente
-          necessitatibus aliquam fuga et. Sed numquam quibusdam at officia
-          sapiente porro maxime corrupti perspiciatis asperiores, exercitationem
-          eius nostrum consequuntur iure aliquam itaque, assumenda et! Quibusdam
-          temporibus beatae doloremque voluptatum doloribus
-        </Typography>
-        <DeleteModal/>
-        <AddPostDialog/>
       </Box>
     </Box>
   );
