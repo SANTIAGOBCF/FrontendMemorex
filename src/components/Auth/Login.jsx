@@ -1,19 +1,16 @@
 import { useDispatch } from "react-redux";
-import { authSignin } from "../../https/postAuth";
-import { setToken } from "../../redux/slices/authSlice";
+import { login } from "../../https/authRequest";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 // add
 import { useSelector } from "react-redux";
-import { getIsLogged } from "../../redux/slices/loggedSlice";
-import { setData } from "../../redux/slices/editDataSlice";
-import { dataSignin } from "../../https/getDataUser";
+import { loginSuccess, registerSuccess } from "../../redux/slices/authSlice";
+import { getDataUser } from "../../https/userRequest";
 
 export const LoginComponent = () => {
   const dispatch = useDispatch();
   // add
-  const { isLogged } = useSelector((state) => state.loggedSlice);
   const { token } = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
 
@@ -24,19 +21,21 @@ export const LoginComponent = () => {
   } = new useForm();
 
   useEffect(() => {
-    if (isLogged) {
-      dataSignin(token)
-        .then((response) => dispatch(setData(response.data)))
-        .catch((e) => console.log(e));
-      navigate("home");
-    }
-  }, [isLogged]);
+    if (token) navigate("home");
+  }, [token]);
+
+  const handleprofile = (token) => {
+    getDataUser(token)
+      .then((res) => dispatch(registerSuccess(res.data)))
+      .catch((e) => console.log(e));
+  };
 
   const onSubmit = (data) => {
-    authSignin({ username: data.email, password: data.password })
+    const valor = { email: "string", password: "string" };
+    login(valor)
       .then((response) => {
-        dispatch(setToken(response.access_token));
-        dispatch(getIsLogged());
+        dispatch(loginSuccess(response));
+        handleprofile(response);
       })
       .catch((e) => console.log(e));
   };
