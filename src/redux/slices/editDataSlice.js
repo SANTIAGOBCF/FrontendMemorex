@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const editDataSlice = createSlice({
   name: "editData",
   initialState: {
-    data: JSON.parse(window.sessionStorage.getItem("data")),
+    data: { username: "Cristian", firstName: "Aquino", phone: 123456789 },
   },
   reducers: {
     setData: (state, action) => {
