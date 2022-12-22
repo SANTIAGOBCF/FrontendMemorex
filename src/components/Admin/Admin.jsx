@@ -1,5 +1,4 @@
 import Alert from "react-bootstrap/Alert";
-
 import { useForm as newUseForm } from "../../hooks/useForm";
 
 import { useForm } from "react-hook-form";
@@ -7,17 +6,18 @@ import { useEffect, useRef, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { putEditProfile } from "../../https/putEdithProfile";
-import InputsForm from "../Admin/InputsForm";
-import { updateData } from "../../redux/slices/authSlice";
+import AdminTableUsers from "./AdminTableUsers";
+import InputsForm from "./InputsForm";
+import AdminTableReports from "./AdminTableReports";
 
-export const Profile = () => {
+export const Admin = () => {
   const { token, user } = useSelector((state) => state.authSlice);
 
   const [isDisabled, enabledForm, disabledForm] = newUseForm();
   const [image, setImage] = useState(null);
 
-  const imgRef = useRef();
   const refForm = useRef();
+  const imgRef = useRef();
   const dispatch = useDispatch();
 
   const {
@@ -46,7 +46,7 @@ export const Profile = () => {
   };
 
   const onSubmit = (values) => {
-    const { password, id, ...data } = values;
+    const { password, ...data } = values;
     if (image) {
       const valor = new FormData();
       const filename = image.name;
@@ -81,7 +81,7 @@ export const Profile = () => {
       <div className="row m-0 p-0" id="item1">
         <div className="col-12 col-md-6 mb-3">
           <div className="header-seccion m-0">
-            <h3>Mi Perfil</h3>
+            <h3>ADMINISTRADOR</h3>
           </div>
           <div className="user-bienvenida">
             <h3>Bienvenido {`${user.first_name} ${user.last_name}`}</h3>
@@ -105,14 +105,12 @@ export const Profile = () => {
               onChange={onImageChange}
             />
           </div>
-        </div>
-        <div className="col-12 col-md-6 m-0 p-0">
           <div className="header-seccion">
             <h3>Cambiar datos: </h3>
           </div>
           <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
             <fieldset ref={refForm}>
-              <InputsForm label="Nombre(s):">
+              <InputsForm label="Nombre:">
                 <input
                   type="text"
                   className="form-control"
@@ -234,7 +232,11 @@ export const Profile = () => {
             </button>
           )}
         </div>
+        <div className="col-12 col-md-6 m-0 p-0">
+          <AdminTableUsers />
+        </div>
       </div>
+      <AdminTableReports />
     </div>
   );
 };

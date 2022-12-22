@@ -1,7 +1,6 @@
 import instance from "../base/settings/axios";
 
 export const putEditProfile = async (data, token) => {
-  console.log("https", data, token);
   let result = await instance({
     method: "PUT",
     headers: {

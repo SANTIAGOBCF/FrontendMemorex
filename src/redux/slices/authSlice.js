@@ -3,27 +3,60 @@ import { createSlice } from "@reduxjs/toolkit";
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    token: null,
+    token: JSON.parse(sessionStorage.getItem("token")),
+    loading: false,
+    error: false,
+    user: JSON.parse(sessionStorage.getItem("user")),
   },
   reducers: {
-    confimToken: (state) => {
-      state.token = window.sessionStorage.getItem("token");
+    registerSuccess: (state, action) => {
+      // const nuevo = action.payload.user;
+      const nuevo = action.payload;
+      sessionStorage.setItem("user", JSON.stringify(nuevo));
+      return {
+        ...state,
+        user: nuevo,
+        loading: false,
+        error: false,
+      };
     },
-    setToken: (state, action) => {
-      //   let token = action.payload;
-      //   state.token = token.payload.token;
-      //   window.sessionStorage.setItem("token", token.payload.token);
-      state.token = action.payload;
-      window.sessionStorage.setItem("token", action.payload);
+    loginSuccess: (state, action) => {
+      // sessionStorage.setItem("token", JSON.stringify(action.payload.token));
+      sessionStorage.setItem("token", JSON.stringify(action.payload));
+      return {
+        ...state,
+        token: action.payload,
+        loading: false,
+        error: false,
+      };
+    },
+    updateData: (state, action) => {
+      const nuevo = action.payload;
+      const a = { ...state.user, ...nuevo };
+      sessionStorage.setItem("user", JSON.stringify(a));
+      return {
+        ...state,
+        user: { ...state.user, ...nuevo },
+      };
+    },
+    // duda
+    newRole: (state, action) => {
+      const prueba = action.payload;
+      const nuevo = { ...state, user: { ...state.user, ...prueba } };
+      console.log(nuevo);
     },
     logout: (state) => {
-      window.sessionStorage.removeItem("token");
-      window.sessionStorage.removeItem("data");
-      state.token = null;
+      sessionStorage.clear();
+      return {
+        ...state,
+        user: null,
+        token: null,
+      };
     },
   },
 });
 
 export default authSlice.reducer;
 
-export const { setToken, logout, confimToken } = authSlice.actions;
+export const { loginSuccess, registerSuccess, updateData, newRole, logout } =
+  authSlice.actions;

@@ -8,7 +8,7 @@ export const ModalReport = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={openModal}>
+      <Button className="btn btn-dark" onClick={openModal}>
         <FaFlag />
       </Button>
       <ModalComponent isOpenModal={isOpenModal} closeModal={closeModal} />
