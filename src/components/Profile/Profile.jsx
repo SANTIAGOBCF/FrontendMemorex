@@ -5,12 +5,18 @@ import { useForm as newUseForm } from "../../hooks/useForm";
 import { useForm } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { putEditProfile } from "../../https/putEdithProfile";
-import { setData } from "../../redux/slices/editDataSlice";
+import InputsForm from "../Admin/InputsForm";
+import { updateData } from "../../redux/slices/authSlice";
 
-export const Profile = ({ token, data }) => {
+export const Profile = () => {
+  const { token, user } = useSelector((state) => state.authSlice);
+
   const [isDisabled, enabledForm, disabledForm] = newUseForm();
+  const [image, setImage] = useState(null);
+
+  const imgRef = useRef();
   const refForm = useRef();
   const dispatch = useDispatch();
 
@@ -20,8 +26,7 @@ export const Profile = ({ token, data }) => {
     handleSubmit,
     reset,
     clearErrors,
-  } = useForm({ defaultValues: { ...data } });
-  console.log(data);
+  } = useForm({ defaultValues: { ...user } });
 
   useEffect(() => {
     const rF = refForm.current;
@@ -33,24 +38,37 @@ export const Profile = ({ token, data }) => {
     }
   }, [isDisabled]);
 
+  const onImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      let img = e.target.files[0];
+      setImage(img);
+    }
+  };
+
   const onSubmit = (values) => {
-    const { password, ...data } = values;
+    const { password, id, ...data } = values;
+    if (image) {
+      const valor = new FormData();
+      const filename = image.name;
+      valor.append("name", filename);
+      valor.append("file", image);
+      // data.image = filename;
+      // console.log(data);
+    }
     if (password === "") {
       // putEditProfile(data, token)
       //   .then((response) => {
       //     dispatch(editData(response.data));
       //   })
       //   .catch((e) => console.log(e));
-      console.log(data);
-      dispatch(setData(data));
+      dispatch(updateData(data));
     } else {
       // putEditProfile(values, token)
       //   .then((response) => {
       //     dispatch(editData(response.data));
       //   })
       //   .catch((e) => console.log(e));
-      console.log(values);
-      dispatch(setData(data));
+      dispatch(updateData(data));
     }
     reset({
       password: "",
@@ -66,14 +84,27 @@ export const Profile = ({ token, data }) => {
             <h3>Mi Perfil</h3>
           </div>
           <div className="user-bienvenida">
-            <h3>Bienvenido {data?.username}</h3>
+            <h3>Bienvenido {`${user.first_name} ${user.last_name}`}</h3>
           </div>
           <img
-            src="../src/static/img/logoBrowser.png"
+            className="rounded-circle mb-3 "
+            src={
+              image
+                ? URL.createObjectURL(image)
+                : "../src/static/img/logoBrowser.png"
+            }
             id="avatar"
-            width="200"
-            height="200"
+            width="250"
+            height="250"
           />
+          <div style={{ display: "none" }}>
+            <input
+              type="file"
+              name="image"
+              ref={imgRef}
+              onChange={onImageChange}
+            />
+          </div>
         </div>
         <div className="col-12 col-md-6 m-0 p-0">
           <div className="header-seccion">
@@ -81,15 +112,12 @@ export const Profile = ({ token, data }) => {
           </div>
           <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
             <fieldset ref={refForm}>
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">Nombres:</span>
-                </div>
+              <InputsForm label="Nombre(s):">
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Nuevo Nombre..."
-                  {...register("username", {
+                  {...register("first_name", {
                     required: { value: true, message: "nombre requerido" },
                     minLength: {
                       value: 3,
@@ -101,21 +129,18 @@ export const Profile = ({ token, data }) => {
                     },
                   })}
                 />
-              </div>
-              {errors.name && (
+              </InputsForm>
+              {errors.first_name && (
                 <Alert key="dangerName" variant="danger">
-                  {errors.name.message}
+                  {errors.first_name.message}
                 </Alert>
               )}
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">Apellidos:</span>
-                </div>
+              <InputsForm label="Apellidos:">
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Nuevo Apellido..."
-                  {...register("firstName", {
+                  {...register("last_name", {
                     required: { value: true, message: "apellido requerido" },
                     minLength: {
                       value: 3,
@@ -127,41 +152,34 @@ export const Profile = ({ token, data }) => {
                     },
                   })}
                 />
-              </div>
-              {errors.firstName && (
+              </InputsForm>
+              {errors.last_name && (
                 <Alert key="dangerApellido" variant="danger">
-                  {errors.firstName.message}
+                  {errors.last_name.message}
                 </Alert>
               )}
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">Teléfono:</span>
-                </div>
+              <InputsForm label="Email:">
                 <input
-                  type="tel"
+                  type="email"
                   className="form-control"
-                  placeholder="Teléfono..."
-                  {...register("phone", {
-                    required: { value: true, message: "telefono requerido" },
+                  placeholder="Email..."
+                  {...register("email", {
+                    required: { value: true, message: "email requerido" },
                     pattern: {
-                      value:
-                        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}$/,
-                      message: "ingrese un numero valido",
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: "ingrese un email valido",
                     },
                   })}
                 />
-              </div>
-              {errors.phone && (
+              </InputsForm>
+              {errors.email && (
                 <Alert key="dangerTelefono" variant="danger">
-                  {errors.phone.message}
+                  {errors.email.message}
                 </Alert>
               )}
               {isDisabled && (
                 <>
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">Contraseña:</span>
-                    </div>
+                  <InputsForm label="Contraseña:">
                     <input
                       className="form-control"
                       type="password"
@@ -177,13 +195,21 @@ export const Profile = ({ token, data }) => {
                         },
                       })}
                     />
-                  </div>
+                  </InputsForm>
                   {errors.password && (
                     <Alert key="dangerPassword" variant="danger">
                       {errors.password.message}
                     </Alert>
                   )}
-
+                  <InputsForm>
+                    <button
+                      type="button"
+                      className="btn btn-dark float-right"
+                      onClick={() => imgRef.current.click()}
+                    >
+                      Cambiar Imagen de perfil
+                    </button>
+                  </InputsForm>
                   <button type="submit" className="btn btn-dark float-right">
                     Cambiar Datos
                   </button>
