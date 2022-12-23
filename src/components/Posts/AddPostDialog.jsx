@@ -24,7 +24,7 @@ export default function AddPostDialog() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Añadir post
+        Publicar
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Añadir post</DialogTitle>

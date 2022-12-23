@@ -11,6 +11,7 @@ import { Personajes } from "./page/Personajes";
 import { Admin } from "./components/Admin/Admin";
 import Layout from "./components/Home/Layout";
 import { Profile } from "./components/Profile/Profile";
+import Posts from "./page/Posts";
 
 function App() {
   const { token, user } = useSelector((state) => state.authSlice);
@@ -34,6 +35,7 @@ function App() {
           }
         />
         <Route path={URLS.PERSONAJES} element={<Personajes />} />
+        <Route path={URLS.POSTS} element={<Posts />} />
         <Route path="*" element={<Navigate replace to={URLS.HOME} />} />
       </Route>
     </Routes>
