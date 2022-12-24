@@ -12,7 +12,7 @@ export default function MultiActionAreaCard() {
         Publicaciones:
     </Typography>
     </Grid>
-    <Card sx={{ maxWidth: 700,borderRadius: 3  }} >
+    <Card sx={{ maxWidth: 900,maxHeight: 1000 ,borderRadius: 3  }} >
       <CardActionArea>
         <CardMedia
           component="img"
@@ -37,7 +37,7 @@ export default function MultiActionAreaCard() {
       </CardActions>
     </Card>
     <Grid paddingTop={2}></Grid>
-    <Card sx={{ maxWidth: 700 }} >
+    <Card sx={{ maxWidth: 900 }} >
       <CardActionArea>
         <CardMedia
           component="img"
