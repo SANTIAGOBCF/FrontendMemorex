@@ -13,6 +13,7 @@ function EditPoliticianModal({ name, imageSource, id, description, organization,
     return (
     <>
       <Button variant="primary" onClick={handleShow}>
+        Editar
       </Button>
 
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} className="mt-5">

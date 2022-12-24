@@ -7,11 +7,10 @@ export const patchPolitician = async (data, token, id) => {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json",
         },
-        url: 'politician/'+Object.values(id),
+        url: 'politician/'+Object.values(id)[0],
 
         data
     });
-    console.log(result.url)
 
     return result.data;
 }

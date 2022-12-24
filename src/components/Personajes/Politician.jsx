@@ -49,9 +49,10 @@ function PoliticianModal({ name, imageSource, id, description, organization, cre
                     </p>
                     <div>
                         {isLogged == true &&
-                            <EditPoliticianModal imageSource={imageSource} name={name} description={description} organization = {organization} id ={id} created_at={created_at} updated_at={updated_at} reference={reference}/>
-                        }  
-                </div>
+                            <EditPoliticianModal imageSource={imageSource} name={name} description={description} organization = {organization} id ={id} created_at={created_at} updated_at={updated_at} reference={reference} Editar/>
+                        } 
+
+                    </div>
                 </div>
             </div>
         </Modal.Body>
