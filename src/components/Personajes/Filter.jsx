@@ -1,42 +1,37 @@
 import Card from "./Card"
-import alan from "../../assets/img/foto_ALAN GARCIA.jpg"
-import julio from "../../assets/img/foto_Julio Guzman.jpg"
-import fujimori from "../../assets/img/foto_KEIKO FUJIMORI.jpg"
 import { useState } from "react"
 import AddPoliticianModal from "./Add"
+import { getPolitician_list } from "../../https/getPolitician_list";
 
 
-const politicos = [
-    {
-        id : 1,
-        name :"Alan Garcia",
-        image : alan,
-    },
-    {
-        id : 2,
-        name :"Julio Guzman",
-        image : julio,
-    },
-    {
-        id : 3,
-        name :"Keiko Fujimori",
-        image : fujimori,
-    },
-];
-
-
-
+let res = Object.values(((await (getPolitician_list())).data).politician_list)
+let politicos=res
 
 function Filter() {
     const isLogged = Boolean(window.sessionStorage.getItem("token"));
 
     const [ search, setSearch ] = useState("");
+    const [ currentPage, setCurrentPage ] = useState(0)
     const filteredPoliticos = () => {
 
-        return politicos.filter(politic => politic.name.toLowerCase().includes(search.toLowerCase()));
+        if( search.length === 0 ) 
+            return politicos.slice(currentPage, currentPage + 3);
+
+        return politicos.filter(politic => politic.name.toLowerCase().includes(search.toLowerCase())).slice(currentPage, currentPage+3);
     }; 
     const onSearchChange = ({ target }) => {
+        setCurrentPage(0);
         setSearch( target.value );
+    };
+
+    const nextPage = () => {
+        if ( politicos.filter(politic => politic.name.toLowerCase().includes(search.toLowerCase())).length > currentPage + 3 )
+            setCurrentPage( currentPage + 3 );
+    };
+
+    const prevPage = () => {
+        if ( currentPage > 0 )
+            setCurrentPage( currentPage - 3 );
     };
 
     return (
@@ -57,15 +52,20 @@ function Filter() {
 
             
 
-            <div className="container d-flex justify-content-center align-items-center h-100">
-                <div className="row">
-                    {filteredPoliticos().map(({ name, image, id }) => (
+           
+            <div className="row">
+                    {filteredPoliticos().map(({ name, profile_image, id, description, organization, created_at, updated_at, reference}) => (
                         <div className="col-md-4" key={id}>
-                            <Card imageSource={image} name={name} />
+                            <Card imageSource={profile_image} name={name} description={description} organization = {organization} id ={id} created_at={created_at} updated_at={updated_at} reference={reference}/>
                         </div>
                     ))}
-                </div>
             </div>
+            
+            <div className="btn-group">
+                <button className="btn btn-primary" onClick={prevPage}>Anterior</button>
+                <button className="btn btn-primary" onClick={nextPage}>Siguiente</button>
+            </div>
+           
         </div>
         
     )

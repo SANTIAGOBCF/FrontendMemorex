@@ -1,4 +1,5 @@
-function Card ({imageSource, name}) {
+import PoliticianModal from "./Politician"
+function Card ({imageSource, name, description, organization, id, created_at, updated_at, reference}) {
 
     return (
 
@@ -7,16 +8,12 @@ function Card ({imageSource, name}) {
             <div>
                 <h4>{name}</h4>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. A voluptatem molestias earum fuga eligendi odio, consectetur necessitatibus iste at distinctio.
+                    Organizacion politica: {organization}
                 </p>
-                <a
-                    href="#"
-                    
-                    className="btn btn-outline-secondary border-0"
-                    rel="noreferrer"
-                    >
-                    Ver mas
-                </a>
+                <p>
+                    Descripcion: {description}
+                </p>
+                <PoliticianModal imageSource={imageSource} name={name} description={description} organization = {organization} id ={id} created_at={created_at} updated_at={updated_at} reference={reference}/>
             </div>
         </div>
 
