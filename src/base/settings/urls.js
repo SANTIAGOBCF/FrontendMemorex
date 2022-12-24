@@ -6,4 +6,5 @@ export const URLS = {
   PROFILE: "profile",
   REGISTER: "register",
   PERSONAJES: "personajes",
+  POSTS:"posts"
 };

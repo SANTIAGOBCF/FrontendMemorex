@@ -10,8 +10,6 @@ import LeftCarousel from "./LeftCarousel";
 
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import DeleteModal from "./DeleteModal";
-import AddPostDialog from "./AddPostDialog";
 
 const Principal = () => {
   const { token } = useSelector((state) => state.authSlice);
@@ -77,8 +75,8 @@ const Principal = () => {
         eius nostrum consequuntur iure aliquam itaque, assumenda et! Quibusdam
         temporibus beatae doloremque voluptatum doloribus
       </Typography>
-      <DeleteModal />
-      <AddPostDialog />
+      
+      
     </Box>
   );
 };
