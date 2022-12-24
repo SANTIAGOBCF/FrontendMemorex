@@ -7,19 +7,83 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { InputLabel, MenuItem, Select } from '@mui/material';
-import { getPoliticianList } from './logic/getPoli';
+import axios from 'axios';
+import { useForm } from "react-hook-form";
 
 export default function AddPostDialog() {
   const [open, setOpen] = React.useState(false);
+  const [politicianList,setPoliticianList]=React.useState();
+  const [file, setFile] = React.useState();
+  const { register, handleSubmit } = useForm();
 
   const handleClickOpen = () => {
-    //console.log(getPoliticianList())
+    
     setOpen(true);
   };
+
+  /*const handleFileChange = (e) => {
+    if (e.target.files) {
+      console.log("here file")
+      setFile(e.target.files[0]);
+    }
+  };*/
+
+  const onSubmit = async (data) => {
+    const valor = new FormData();
+    const filename = data.file[0].name;
+    valor.append("name", filename);
+    valor.append("file", data.file[0]);
+
+    const resul = await axios("https://backendmemorex-production.up.railway.app/api/image/upload", {
+        method: "POST",
+        valor,
+        headers: {
+          'Content-Type':  'multipart/form-data'
+        }
+    })
+    //alert(JSON.stringify(`${res.message}, status: ${res.status}`));
+  };
+
+  /*const handleUploadClick = async () => {
+    if (!file) {
+      return;
+    }
+    //const valor = new FormData();
+    //valor.append('image', $('input[type=file]')[0].files[0]);
+
+    const resu = await axios({
+      method: "POST",
+      body: file,
+      url: "https://backendmemorex-production.up.railway.app/api/image/upload",
+      headers: {
+        'Content-Type':  'multipart/form-data'
+      }
+    })
+    setOpen(false);
+    console.log("false set open")
+  };*/
 
   const handleClose = () => {
     setOpen(false);
   };
+  const getPoliticianList = async () => {
+    const res = await axios({
+      method: "GET",
+      url: "https://backendmemorex-production.up.railway.app/api/politician/list/",
+      headers: {
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk3Yjc0MDgwLWQzNTktNGM2OC1iMGQwLWE2NGJjYzNjMjU4NiJ9.fk0xaljZMqm4LbIO_qa25AjKkCoeLhOeaicsBhjIMbU"
+      }
+    })
+    var result=await res.data
+    setPoliticianList(result.politician_list)
+
+  };
+
+  React.useEffect(() => {
+    getPoliticianList()
+    
+  }, [])
+  
 
   return (
     <div>
@@ -27,6 +91,7 @@ export default function AddPostDialog() {
         Publicar
       </Button>
       <Dialog open={open} onClose={handleClose}>
+      <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
         <DialogTitle>Añadir post</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -41,9 +106,14 @@ export default function AddPostDialog() {
             fullWidth
             variant='standard'
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {
+              politicianList && politicianList.map(
+                  politician=>{
+                    return <MenuItem value={politician.name}>{politician.name}</MenuItem>
+                  }
+              )
+            }
+            <MenuItem value={"Aliaga"}>Lopez Aliaga</MenuItem>
           </Select>
           <TextField
             margin="dense"
@@ -70,22 +140,16 @@ export default function AddPostDialog() {
             multiline
             variant="standard"
           />
-          <Button
-            variant="contained"
-            component="label"
-          >
-            <div></div>
-            Subir imagen
-            <input
-              type="file"
-              hidden
-            />
-          </Button>
+          <input
+            type="file" 
+            {...register("file")}       
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleClose}>Aceptar</Button>
+          <Button type="submit">Aceptar</Button>
         </DialogActions>
+      </form>
       </Dialog>
     </div>
   );
