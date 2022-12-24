@@ -16,7 +16,7 @@ export const login = async (data) => {
   let result = await instance({
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "text/plain",
     },
     url: "user/login/",
     data,
