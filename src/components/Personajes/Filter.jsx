@@ -3,6 +3,7 @@ import alan from "../../assets/img/foto_ALAN GARCIA.jpg"
 import julio from "../../assets/img/foto_Julio Guzman.jpg"
 import fujimori from "../../assets/img/foto_KEIKO FUJIMORI.jpg"
 import { useState } from "react"
+import AddPoliticianModal from "./Add"
 
 
 const politicos = [
@@ -27,6 +28,8 @@ const politicos = [
 
 
 function Filter() {
+    const isLogged = Boolean(window.sessionStorage.getItem("token"));
+
     const [ search, setSearch ] = useState("");
     const filteredPoliticos = () => {
 
@@ -38,10 +41,17 @@ function Filter() {
 
     return (
         <div>
-            <div className="input-group d-flex justify-content-center align-items-center">
-                <label className="me-2">Buscar</label>
-                <div className="form-outline">
-                    <input type="search" id="form1" className="form-control" onChange={onSearchChange} />
+            <div className="d-flex">
+                <div className="input-group d-flex justify-content-center align-items-center">
+                    <label className="me-2">Buscar</label>
+                    <div className="form-outline">
+                        <input type="search" id="form1" className="form-control" onChange={onSearchChange} />
+                    </div>
+                </div>
+                <div>
+                    {isLogged == true &&
+                        <AddPoliticianModal/>
+                    }  
                 </div>
             </div>
 
