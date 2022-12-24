@@ -31,7 +31,7 @@ export const LoginComponent = () => {
   };
 
   const onSubmit = (data) => {
-    const valor = { email: "string", password: "string" };
+    const valor = { email: data.email, password: data.password };
     login(valor)
       .then((response) => {
         dispatch(loginSuccess(response));
